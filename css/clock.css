@@ -1,0 +1,408 @@
+@font-face {
+  font-family: "dinregular";
+  src: url(../fonts/DINNextLTPro-Regular.ttf);
+}
+
+@font-face {
+  font-family: "dinmedium";
+  src: url(../fonts/DINNextLTPro-Medium.ttf);
+}
+
+@font-face {
+  font-family: "dinbold";
+  src: url(../fonts/DINNextLTPro-Bold.ttf);
+}
+
+@font-face {
+  font-family: "dinheavy";
+  src: url(../fonts/DINNextLTPro-Heavy.ttf);
+}
+
+body {
+  font-family: "dinregular";
+  margin: 0;
+}
+body[data-day="null"] > *:not(.spinnerContainer) {
+  display: none;
+}
+body[data-day="false"] {
+  background-image: url(../images/night/background-1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.img-fluid {
+  width: 100%;
+  height: auto;
+}
+.none-btn:hover,
+.none-btn {
+  background-color: unset;
+  border: none;
+}
+.clockMainContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+.clockInfoContainer {
+  width: 20%;
+}
+.clockContainer {
+  background: #f0f5f8;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  position: relative;
+  background-image: url(../images/clock-background.svg);
+  background-size: 92%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.clockOptions {
+  rotate: -90deg;
+  width: 100%;
+  height: 100%;
+}
+.clockContainer .timer {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  translate: 0% -50%;
+}
+.clockContainer .timer::after {
+  position: absolute;
+  content: "";
+  width: 51.8%;
+  right: 0;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.clockContainer div.clockCenter {
+  width: 9px;
+  height: 9px;
+  left: 50%;
+  translate: -50% -50%;
+}
+.clockHours,
+.clockSeconds,
+.clockMins {
+  width: 100%;
+  height: 4.2%;
+}
+.clockMins::after {
+  background-image: url(../images/mins.svg);
+}
+.clockHours::after {
+  background-image: url(../images/hour.svg);
+}
+.clockSeconds::after {
+  background-image: url(../images/second.svg);
+}
+.clockCenter {
+  background-image: url(../images/clock-center.svg);
+  background-size: cover;
+}
+.clockStatus {
+  width: 40px;
+  position: absolute;
+  left: 16px;
+  top: 16px;
+}
+.activePage {
+}
+.clockLocation {
+  display: flex;
+  margin: 15px 0;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  gap: 20px;
+  font-size: 20px;
+  line-height: 1;
+}
+.clockLocation .location {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.clockLocation .clockTemperature {
+  font-weight: bold;
+  font-size: 55px;
+  position: relative;
+}
+.clockLocation .clockTemperature::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border: 3px solid #fff;
+  border-radius: 100px;
+}
+.btn {
+  padding: 10px 30px;
+  font-size: 16px;
+  border-radius: 100px;
+  border: none;
+  display: block;
+  cursor: pointer;
+}
+.btn-dark,
+.btn.btn-light {
+  margin: auto;
+}
+.btn-dark {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: #1b1b1b;
+  color: #fff;
+}
+.spinnerContainer:not(.activeLoader),
+body > section:not(.activePage) {
+  display: none;
+}
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+.spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, #474bff);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0);
+  animation: spinner-zp9dbg 1s infinite linear;
+}
+
+@keyframes spinner-zp9dbg {
+  to {
+    transform: rotate(1turn);
+  }
+}
+.navigatorList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  gap: 7%;
+  color: #ffffff;
+}
+.navigatorList li {
+  padding: 5px 30px;
+  border-bottom: 3px solid #a1a1a1;
+  cursor: pointer;
+}
+.navigatorList li.activePage {
+  border-bottom: 3px solid #ffffff;
+}
+
+.alarmContainer:not(.emptyAlarm) {
+  overflow-y: scroll;
+  padding-right: 16px;
+  margin-right: -16px;
+}
+.alarmContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 80vh;
+}
+.alarmContainer::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: #ccc;
+}
+.alarmContainer::-webkit-scrollbar-thumb {
+  background: #00000080;
+}
+.alarmContainer::-webkit-scrollbar-track {
+  background: #bdbdbd;
+}
+
+.emptyAlarm {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+div.emptyAlarm h2 {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 24px;
+}
+.emptyAlarm h2,
+.emptyAlarm p {
+  margin: 0;
+}
+.sideSlider.activeSlider {
+  right: 0;
+}
+.sideSlider {
+  position: absolute;
+  top: 0;
+  right: -28%;
+  width: 25%;
+  height: 100vh;
+  background: #eee;
+  transition: transform 0.8s ease;
+  padding: 16px;
+}
+.sliderClose {
+  cursor: pointer;
+  position: absolute;
+  right: 16px;
+}
+.sideSlider h2 {
+  margin-top: 0px;
+  font-weight: normal;
+}
+.setAlarm {
+  padding: 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.setAlarm.activeTimer {
+}
+.alarmTimer {
+  width: calc(100% - 50px);
+}
+.alarmTimer > div {
+}
+.alarmTimer > span {
+  color: #454545;
+  display: flex;
+  gap: 10px;
+}
+.alarmTimer > span p {
+  margin: 0;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.setAlarm input {
+  display: none;
+}
+.setAlarm .alarmOnOff input:checked + label {
+  background: #1b1b1b;
+  border: 2px solid #1b1b1b;
+  margin-right: 10px;
+}
+.setAlarm .alarmOnOff label {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  width: 30px;
+  height: 14px;
+  background: #d8d8d8;
+  border: 2px solid #5d5d5d;
+  border-radius: 44px;
+}
+.setAlarm .alarmOnOff label::after {
+  content: "";
+  position: absolute;
+  border-radius: 44px;
+}
+.setAlarm .alarmOnOff input:checked + label::after {
+  left: 100%;
+}
+.setAlarm .alarmOnOff label::after {
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border: 2px solid #1b1b1b;
+  top: 50%;
+  left: 0;
+  translate: -50% -50%;
+}
+.setTime {
+  font-size: 40px;
+}
+.timeInfo {
+  font-size: 14px;
+}
+.addAlarm {
+  width: 46px;
+  height: 46px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  border: 3px solid #1b1b1b;
+  position: absolute;
+  bottom: 16px;
+  right: 0;
+  translate: -50% -50%;
+  cursor: pointer;
+}
+.deleteAlarm {
+  cursor: pointer;
+  /* margin-right: 16px; */
+}
+.addAlarmModal {
+  height: fit-content;
+  bottom: 16px;
+  top: unset;
+  border-top: 3px solid #1b1b1b;
+  width: calc(100% - 32px);
+  right: -100%;
+}
+.AlarmModalBody {
+  width: 70%;
+  margin: auto;
+}
+.AlarmModalBody > div {
+  display: flex;
+  gap: 10px;
+}
+.AlarmModalBody input,
+.AlarmModalBody select {
+  appearance: none;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  height: 50px;
+  text-align: center;
+  font-size: 16px;
+}
+.errorModal:not(.activeErrorModal) {
+  display: none;
+}
+.errorModal {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  background: #ff3a3a;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: #fff;
+  min-width: 200px;
+}
+.errorModal p {
+  margin: 0;
+}
+/*
+.clockHours{rotate:10deg}
+.clockSeconds{rotate:180deg}
+.clockMins{rotate:60deg} 
+*/
