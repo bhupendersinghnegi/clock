@@ -1,5 +1,5 @@
 // This the file from where any API's will get call if needed.
-const locationApiUrl = "http://ip-api.com/json/";
+const locationApiUrl = "https://ip-api.com/json/";
 const temperatureApiUrl = "https://api.open-meteo.com/v1/forecast?";
 
 async function apiContact(apiUrl) {
