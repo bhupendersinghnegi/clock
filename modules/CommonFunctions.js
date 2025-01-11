@@ -11,7 +11,7 @@ function errorModal({ value = "Something went wrong..." }) {
     errorModal.classList.add("activeErrorModal");
     setInterval(() => {
         errorModal.classList.remove("activeErrorModal");
-    }, 1000);
+    }, 5000);
 }
 
 // Get the url after ? mark 
@@ -72,5 +72,22 @@ function toggleClassHandler({ action, element, className }) {
 }
 
 
-export { currentTime, errorModal, getURLQuery, toggleClassHandler, urlWriting, validateInputHandler };
+
+// This function will convert seconds to HH:MM:SS format
+function secondsToHHMMSS({ totalSeconds: seconds }) {
+    let hours = Math.floor(seconds / 3600);
+    seconds %= 3600;
+    let minutes = Math.floor(seconds / 60);
+    seconds %= 60;
+    const setHours = hours.toString().padStart(2, '0');
+    const setMints = minutes.toString().padStart(2, '0');
+    const setSeconds = seconds.toString().padStart(2, '0');
+    return {
+        setHours, setMints, setSeconds
+    };
+}
+
+
+
+export { currentTime, errorModal, getURLQuery, toggleClassHandler, urlWriting, validateInputHandler,secondsToHHMMSS };
 

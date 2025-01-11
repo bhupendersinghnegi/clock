@@ -1,7 +1,7 @@
 import { currentTemperature, getLocationHandler } from "./APIs.js";
 import { currentTime } from "./CommonFunctions.js";
 import { pageNavigation } from "./Navigator.js";
-import { startRightHandler } from "./SetUpAlarm.js";
+import { loadAlarms, startRightHandler } from "./SetUpAlarm.js";
 
 // This is the function which will take sunrise and sunset and give the what time is it
 // Sunrise || Sunset
@@ -21,8 +21,7 @@ function sunStatusHandler({ sunrise, sunset, currentTime }) {
 // Every clock has some other information(Location, Day, temperature)
 async function clockInformationHandler({
     getHour, getMinute, getSecond, currentTime
-}) {
-    console.log(currentTime)
+}) { 
     const { latitude, longitude, country, city, timezone } = await getLocationHandler();
     const { temperature, sunrise, sunset } = await currentTemperature({ latitude, longitude });
     const { sun, status } = sunStatusHandler({ sunrise, sunset, currentTime })
@@ -33,13 +32,12 @@ async function clockInformationHandler({
 
     const options = { weekday: 'long' }; // 'long' will return the full name of the weekday
     const dayName = currentTime.toLocaleDateString('en-US', options);
-
-    console.log(getHour)
+ 
     return ` <div class="clockLocation">
                 <div class="clockTemperature">${Math.round(temperature)}</div>
                 <div class="location">
                     <span>${city}, ${country}</span>
-                    <span>${sun} time, ${dayName}</span>
+                    <span>${timezone}, ${dayName}</span>
                 </div>
             </div>
             <button type="button" class="btn btn-light createAlarm">Set Alarm</button>`;
@@ -87,8 +85,15 @@ async function getLocalTime({ hour, minute, second, tag }) {
         const getHour = currentTime.getHours().toString();
         const getMinute = currentTime.getMinutes().toString();
         const getSecond = currentTime.getSeconds().toString();
-        if (getSecond == 0) { 
-            startRightHandler();
+        if (getSecond == 0) {
+            const isAlarm = startRightHandler();
+
+            // Set up the UI of set alarm section
+            if (isAlarm) {
+                const sideSliderContainer = document.querySelector(".sideSliderContainer");
+                const sideSlider = document.querySelector(".sideSlider");
+                loadAlarms({ sidebar: sideSlider, containerTag: sideSliderContainer });
+            }
         }
         formattedTime = `${getHour.padStart(2, '0')}:${getMinute.padStart(2, '0')}:${getSecond.padStart(2, '0')}`;
         createClockHandler({

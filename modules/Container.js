@@ -33,13 +33,18 @@ const clockSession = "localClockSession";
             alarmDays: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] || [],
             ringtoneName:"mp3 file path"
         }
+    },
+    TIMER:{
+        timerOn: true || false,
+        timerInSeconds: 10,
+        timerStatus: "start" || "pause" || "stop"
     }
-
 */
 // THis is the json object that will contain all the information about the application
 let allClockJSON = {
     WORLDCLOCKS: {},
-    ALARMS: {}
+    ALARMS: {},
+    TIMER: {}
 };
 function allClockJSONHandler({
     operation, type, clockJSON, alarmID
@@ -54,6 +59,12 @@ function allClockJSONHandler({
     } else if (operation === "update") {
         allClockJSON[type][alarmID] = clockJSON;
     }
+    localStorage.setItem(clockSession, JSON.stringify(allClockJSON));
+}
+
+// When start the app just check if the localStorage has clockSession
+if (localStorage.getItem(clockSession)) {
+    allClockJSON = JSON.parse(localStorage.getItem(clockSession));
 }
 
 // This will start the first clock asper the user location
