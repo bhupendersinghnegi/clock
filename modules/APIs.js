@@ -35,7 +35,6 @@ async function currentTemperature({ latitude, longitude }) {
         current_weather: { temperature },
         daily: { sunrise, sunset }
     } = data;
-    console.log(data)
     return { temperature, sunrise: sunrise[0], sunset: sunset[0] };
 }
 export { currentTemperature, getLocationHandler };

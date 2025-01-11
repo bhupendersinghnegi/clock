@@ -1,60 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Clock</title>
 
-    <!-- LINKS -->
-    <link rel="stylesheet" href="./css/clock.css" />
-  </head>
-  <body data-day="null">
-    <div class="clockStatus">
-      <img
-        src="./images/morning.svg"
-        width="90"
-        height="90"
-        class="img-fluid"
-        alt="status morning"
-      />
-    </div>
-    <section data-page="1">
-      <div class="clockMainContainer"></div>
-    </section>
-    <section data-page="2"></section>
-    <section data-page="3">
-      <div class="timer">
-       <div class="timerContainer">
-        <input type="text" class="setHour" data-type="tel" data-limit="2" maxlength="2" inputmode="tel">
-        <input type="text" class="setMints"  data-type="tel" data-limit="2"  maxlength="2"  inputmode="tel">
-        <input type="text" class="setSeconds"  data-type="tel" data-limit="2"  maxlength="2"  inputmode="tel">
-       </div>
-       <button class="startBtn">Start</button>
-       <button class="pausBtn"></button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Clock</title>
+
+  <!-- LINKS -->
+  <link rel="shortcut icon" href="./images/fav-icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="./css/clock.css" />
+</head>
+
+<body data-day="null">
+  <!-- <div class="clockStatus">
+    <img src="./images/morning.svg" width="90" height="90" class="img-fluid" alt="status morning" />
+  </div> -->
+  <section data-page="1">
+    <div class="clockMainContainer"></div>
+  </section>
+  <section data-page="2"></section>
+  <section data-page="3">
+    <div class="timerPage" data-play="true">
+      <div class="timerContainer">
+        <input type="text" value="00" class="formInput setHour" data-type="tel" data-limit="2" maxlength="2"
+          inputmode="tel">
+        <input type="text" value="00" class="formInput setMints" data-type="tel" data-limit="2" maxlength="2"
+          inputmode="tel">
+        <input type="text" value="00" class="formInput setSeconds" data-type="tel" data-limit="2" maxlength="2"
+          inputmode="tel">
       </div>
-
-    </section>
-
-    <div class="spinnerContainer activeLoader">
-      <div class="spinner"></div>
-    </div>
-    <ul class="navigatorList">
-      <li class="navPage" data-page="1">HOME</li>
-      <li class="navPage" data-page="2">WORLD CLOCK</li>
-      <li class="navPage" data-page="3">TIMER</li>
-    </ul>
-
-    <div class="sideSlider">
-      <button type="button" class="sliderClose none-btn">
-        <img src="./images/close.svg" width="24" height="24" alt="close btn" />
-      </button>
-      <div class="sideSliderContainer"></div>
+      <div class="timerBtns">
+        <button class="startBtn btn btn-light">
+          <img src="./images/play.svg" width="14" height="18" alt="play button">
+        </button>
+        <button class="pausBtn btn btn-light">
+          <img src="./images/pause.svg" width="24" height="24" alt="pause button">
+        </button>
+        <button class="resetBtn btn btn-dark">
+          <img src="./images/refresh-cw.svg" width="20" height="20" alt="reset button">
+        </button>
+      </div>
     </div>
 
-    <div class="errorModal">
-      <img src="./images/frown.svg" alt="error image" width="24" height="24" />
-      <p class="textFiled"></p>
-    </div>
-    <script type="module" src="./modules/Container.js"></script>
-  </body>
+  </section>
+
+  <div class="spinnerContainer activeLoader">
+    <div class="spinner"></div>
+  </div>
+  <ul class="navigatorList">
+    <li class="navPage" data-page="1">HOME</li>
+    <!-- <li class="navPage" data-page="2">WORLD CLOCK</li> -->
+    <li class="navPage" data-page="3">TIMER</li>
+  </ul>
+
+  <div class="sideSlider">
+    <button type="button" class="sliderClose none-btn">
+      <img src="./images/close.svg" width="24" height="24" alt="close btn" />
+    </button>
+    <div class="sideSliderContainer"></div>
+  </div>
+
+  <div class="errorModal">
+    <img src="./images/frown.svg" alt="error image" width="24" height="24" />
+    <p class="textFiled"></p>
+  </div>
+  <a href="https://www.figma.com/proto/xoh7Sc88mUJPBnBwuHtwcK/LOGIN-PAGE?node-id=225-716&t=DtkKnV28Q7Y8PV5E-1" class="figmaLink" target="_blank">
+    <img src="./images/figma.svg" width="100" height="100" class="img-fluid" alt="figma logo">
+  </a>
+  <script type="module" src="./modules/Container.js"></script>
+</body>
 </html>

@@ -1,12 +1,14 @@
 // This file will disable what to do(When an event is fired) or what to do show the user as per the url
 
-import { errorModal, getURLQuery, urlWriting, validateInputHandler } from "./CommonFunctions.js";
+import { errorModal, getURLQuery, toggleClassHandler, urlWriting, validateInputHandler } from "./CommonFunctions.js";
 import { allClockJSON, allClockJSONHandler } from "./Container.js";
 import { loadAlarms, setUpAlarmHandler } from "./SetUpAlarm.js";
+import { initTimer, TimerHandler } from "./Timer.js";
 
 // THis function will handle all the events on this application
 const sideSliderContainer = document.querySelector(".sideSliderContainer");
 const sideSlider = document.querySelector(".sideSlider");
+const timerPage = document.querySelector(".timerPage");
 function navigator() {
     document.addEventListener("click", (Event) => {
         const targetElement = Event.target;
@@ -33,7 +35,8 @@ function navigator() {
             const clockID = timeStatus + hour + minute; //[AM||PM:HH:MM:]
             const clockJSON = {
                 [clockID]: {
-                    hour, minute, timeStatus,
+                    hour: +hour, minute: +minute, 
+                    timeStatus,
                     alarmOn: true,
                     alarmTime: 10, // How much time it will right
                     alarmType: "Weekly",
@@ -71,6 +74,16 @@ function navigator() {
                 urlWriting(`?timer`);
                 pageNavigation(targetElement);
             }
+        }
+        // Timer page navigation
+        if (targetElement.closest(".startBtn")) {
+            initTimer({ timerPage });
+        }
+        if (targetElement.closest(".pausBtn")) {
+            TimerHandler({ timerPage, runningTimer: true });
+        }
+        if (targetElement.closest(".resetBtn")) {
+            TimerHandler({ timerPage, runningTimer: false });
         }
     })
 
@@ -136,6 +149,9 @@ function pageNavigation(target) {
     // Nav update
     document.querySelector(".navPage.activePage")?.classList.remove("activePage");
     document.querySelector(`.navPage[data-page="${toGoPage}"]`).classList.add("activePage");
+
+    // Close the sidebar if opened by clicking
+    toggleClassHandler({ action: false, element: sideSlider, className: "activeSlider" });
 }
 export { navigator, pageNavigation };
 
