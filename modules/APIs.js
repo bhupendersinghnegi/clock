@@ -1,6 +1,7 @@
 // This the file from where any API's will get call if needed.
-const locationApiUrl = "https://ip-api.com/json/";
-const temperatureApiUrl = "https://api.open-meteo.com/v1/forecast?";
+const IPADDRESS = "https://api.ipify.org/?format=json";
+const LOCATIONAPIURL = "https://ipapi.co/";
+const TEMPERATUREAPIURL = "https://api.open-meteo.com/v1/forecast?";
 
 async function apiContact(apiUrl) {
     try {
@@ -22,20 +23,29 @@ async function apiContact(apiUrl) {
     }
 }
 async function getLocationHandler() {
-    const data = await apiContact(locationApiUrl);
-    const { lat: latitude, lon: longitude, country, city, timezone } = data;
-    return { latitude, longitude, country, city, timezone }
+    try {
+        const { ip } = await apiContact(IPADDRESS);
+        const data = await apiContact(LOCATIONAPIURL + ip + "/json/");
+        const { latitude, longitude, country_name:country, city, timezone } = data;
+        return { latitude, longitude, country, city, timezone }
+    } catch (error) {
+        console.error("Error in apiContact:", error.message);
+    }
 }
 
 async function currentTemperature({ latitude, longitude }) {
-    const query = `latitude=${latitude}&longitude=${longitude}&daily=sunrise,sunset&timezone=auto&current_weather=true`;
-    const data = await apiContact(temperatureApiUrl + query);
+    try {
+        const query = `latitude=${latitude}&longitude=${longitude}&daily=sunrise,sunset&timezone=auto&current_weather=true`;
+        const data = await apiContact(TEMPERATUREAPIURL + query);
 
-    const {
-        current_weather: { temperature },
-        daily: { sunrise, sunset }
-    } = data;
-    return { temperature, sunrise: sunrise[0], sunset: sunset[0] };
+        const {
+            current_weather: { temperature },
+            daily: { sunrise, sunset }
+        } = data;
+        return { temperature, sunrise: sunrise[0], sunset: sunset[0] };
+    } catch (error) {
+        console.error("Error in apiContact:", error.message);
+    }
 }
 export { currentTemperature, getLocationHandler };
 

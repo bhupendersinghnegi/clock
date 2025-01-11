@@ -515,7 +515,7 @@ div.emptyAlarm h2 {
 }
 
 
-.figmaLink{
+.figmaLink {
   position: fixed;
   bottom: 16px;
   right: 16px;
@@ -526,7 +526,19 @@ div.emptyAlarm h2 {
   height: 24px;
   box-shadow: 2px 2px 12px #ffffff40, -2px -2px 12px #ffffff40;
 }
+
+@media (min-width: 768px) {
+  body[data-day="false"] {
+    overflow: hidden;
+    background-position: bottom;
+  }
+}
+
 @media (max-width: 768px) {
+  body[data-day="false"] {
+    background-position: center bottom;
+  }
+
   .navigatorList li {
     padding: 5px 30px;
   }
@@ -534,10 +546,12 @@ div.emptyAlarm h2 {
   .clockInfoContainer {
     width: calc(100% - 32px);
   }
-.clockContainer{
-  width: 70%;
-  margin: auto;
-}
+
+  .clockContainer {
+    width: 70%;
+    margin: auto;
+  }
+
   .clockMainContainer {
     height: 100vh;
     align-items: center;
@@ -550,7 +564,8 @@ div.emptyAlarm h2 {
   .sideSlider {
     width: 70%;
   }
-  .navigatorList{
+
+  .navigatorList {
     gap: 16px;
   }
 }
