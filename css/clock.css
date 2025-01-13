@@ -296,6 +296,7 @@ div.emptyAlarm h2 {
   background: #eee;
   transition: transform 0.8s ease;
   padding: 16px;
+  z-index:1;
 }
 
 .sliderClose {
