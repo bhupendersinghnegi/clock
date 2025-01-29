@@ -1,7 +1,6 @@
 // This the file from where all the js function will start executing.
 
-import { starterClockHandler } from "./ClockOperations.js";
-import { navigator } from "./Navigator.js";
+import { navigator, pageNavigation } from "./Navigator.js";
 
 
 // This will store the all the clock info in the local
@@ -67,8 +66,9 @@ if (localStorage.getItem(clockSession)) {
     allClockJSON = JSON.parse(localStorage.getItem(clockSession));
 }
 
-// This will start the first clock asper the user location
-starterClockHandler();
+
+// This the function that will set the page as per the need
+pageNavigation();
 
 // THis function will handle all the events on this application
 navigator();

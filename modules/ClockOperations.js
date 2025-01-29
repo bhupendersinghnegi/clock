@@ -26,8 +26,6 @@ async function clockInformationHandler({
     const { temperature, sunrise, sunset } = await currentTemperature({ latitude, longitude });
     const { sun, status } = sunStatusHandler({ sunrise, sunset, currentTime })
 
-    // Setup UI as per the sun status
-    document.body.dataset.day = status
 
 
     const options = { weekday: 'long' }; // 'long' will return the full name of the weekday

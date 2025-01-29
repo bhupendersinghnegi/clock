@@ -1,5 +1,6 @@
 // This file will disable what to do(When an event is fired) or what to do show the user as per the url
 
+import { starterClockHandler } from "./ClockOperations.js";
 import { errorModal, getURLQuery, toggleClassHandler, urlWriting, validateInputHandler } from "./CommonFunctions.js";
 import { allClockJSON, allClockJSONHandler } from "./Container.js";
 import { loadAlarms, setUpAlarmHandler } from "./SetUpAlarm.js";
@@ -35,7 +36,7 @@ function navigator() {
             const clockID = timeStatus + hour + minute; //[AM||PM:HH:MM:]
             const clockJSON = {
                 [clockID]: {
-                    hour: +hour, minute: +minute, 
+                    hour: +hour, minute: +minute,
                     timeStatus,
                     alarmOn: true,
                     alarmTime: 10, // How much time it will right
@@ -64,14 +65,14 @@ function navigator() {
 
         if (targetElement.closest(".navPage")) {
             const page = +targetElement.dataset.page;
-            if (page === 1) {
-                urlWriting(``);
+            if (page === 1) { 
+                urlWriting(`?alarm`);
                 pageNavigation(targetElement);
             } else if (page === 2) {
                 urlWriting(`?world-clock`);
                 pageNavigation(targetElement);
             } else if (page === 3) {
-                urlWriting(`?timer`);
+                urlWriting(`?`);
                 pageNavigation(targetElement);
             }
         }
@@ -117,7 +118,7 @@ function URLHandler() {
     }
     const urlKeys = {
         "world-clock": true, // This is the world clock page 
-        "timer": true,       // This is page where timer functionality is working
+        "alarm": true,       // This is page where timer functionality is working
     }
     Object.entries(URLSetup).forEach(([key, value]) => {
         if (!urlKeys[key]) {
@@ -134,12 +135,14 @@ function pageNavigation(target) {
     // Get info from the url and setup the display container
     const URLSetup = getURLQuery();
     // Using this we will change the page navigation
-    let toGoPage = 1;
+    let toGoPage = 3;
     if (Object.keys(URLSetup).length === 1) {
         if (URLSetup.hasOwnProperty("world-clock")) {
             toGoPage = 2;
-        } else if (URLSetup.hasOwnProperty("timer")) {
-            toGoPage = 3;
+        } else if (URLSetup.hasOwnProperty("alarm")) {
+            // This will start the first clock asper the user location
+            starterClockHandler();
+            toGoPage = 1;
         }
     }
     // Reset the page navigation
@@ -150,6 +153,9 @@ function pageNavigation(target) {
     document.querySelector(".navPage.activePage")?.classList.remove("activePage");
     document.querySelector(`.navPage[data-page="${toGoPage}"]`).classList.add("activePage");
 
+
+    // Setup UI as per the sun status
+    document.body.dataset.day = "false";
     // Close the sidebar if opened by clicking
     toggleClassHandler({ action: false, element: sideSlider, className: "activeSlider" });
 }
